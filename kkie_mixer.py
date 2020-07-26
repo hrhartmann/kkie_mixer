@@ -2,7 +2,8 @@ from random import shuffle
 from collections import deque
 from grupo import Dir, Unit, Grupo
 
-kkscsv = 'kkies_mixtos_2020.csv'
+
+kkscsv = 'kkies_mixtos_2020.csv' #Este es el archivo que vamos a leer
 unidades = {'Manada':'M','Bandada':'B','Cia':'Cia','Clan':'Clan','Tropa':'T','Pionas':'P'}
 
 
@@ -23,14 +24,11 @@ def create_things(unidades, archivo):
         if dir.assists:
             SanFrancesco.pre_assign(dir)
 
-    for unit in SanFrancesco.unidades.values():
-        print(unit)
+    SanFrancesco.print_group()
 
 
     return SanFrancesco
 
-def asignar_preliminar(lista):
-    pass
 
 def kkies_mixtos_reader(archivo):
     uequiv = {'B':'Bandada', 'M':'Manada', 'T':'Tropa', 'Cia':'Cia',
@@ -49,20 +47,20 @@ def kkies_mixtos_reader(archivo):
             new = False
             name = jefe[0]
             assists = True
-            already.append(invequiv[jefe[3]])
+            already.append(invequiv[jefe[1]])
             for option in jefe[5:]:
                 if option not in already and option != '*' and option != '\n':
                     already.append(option)
             unidades = ['Manada', 'Tropa', 'Pionas', 'Cia', 'Clan', 'Bandada']
-            if jefe[1] == 'si':
-                assigned = jefe[3]
+            if jefe[3].lower() == 'si':
+                assigned = jefe[1]
             else:
                 assigned = None
-            if jefe[2] == 'si':
+            if jefe[2].lower() == 'si':
                 new = True
-            if 'no' in jefe[4]:
+            if 'no' in jefe[4].lower():
                 assists = False
-            dog = Dir(name, already, new=new, assigned=assigned, assists=assists, actual=jefe[3])
+            dog = Dir(name, already, new=new, assigned=assigned, assists=assists, actual=jefe[1])
             kkie.append(dog)
     return kkie
 

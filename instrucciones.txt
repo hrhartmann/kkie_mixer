@@ -1,9 +1,0 @@
-asignado == si or Nan
-Nuevo == si or Nan
-Actual == Unidad Actual (ej: Manada)
-Asiste == no or Nan
-historial == Unit key (ej: M)
-
-
-* indica vacio
-later indica que no es seguro que vaya el sabado

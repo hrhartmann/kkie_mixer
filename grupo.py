@@ -16,7 +16,6 @@ class Dir:
                     'P':'Pionas', 'Clan':'Clan'}
             for b in possible:
                 if b not in already and self.assigned == None:
-                    print(name, b)
                     self.assigned = uequiv[b]
                     self.already = already
         else:
@@ -58,6 +57,7 @@ class Grupo:
     def __init__(self, unidades, total):
         self.unidades = unidades
         self.total = total
+        self.no_asisten = []
         self.asisten = 0
 
     def no_asisten(self):
@@ -70,3 +70,12 @@ class Grupo:
         if dir.assigned:
             self.unidades[dir.assigned].asignados.append(dir)
         self.onemore()
+
+    def print_group(self):
+        print('##### Kkie Mixto #####')
+        print('No asisten: ')
+        for e in self.no_asisten:
+            print(e.name)
+        print()
+        for unit in self.unidades.values():
+            print(unit)
