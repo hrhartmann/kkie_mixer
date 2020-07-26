@@ -39,7 +39,7 @@ otro (parte del historial): * = vacío / {M, B, T, Cia, P, Clan}
 1. Ajustar los valores necesarios para ejecutar el programa correctamente.
 
 
-*obligatorio
+*obligatorio  
 \# Nothing el codigo ha sido desarrollado por AbyssalBit
 
 
