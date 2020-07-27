@@ -3,6 +3,7 @@ from collections import deque
 import sys
 from grupo import Dir, Unit, Grupo
 
+#Code version 2.5
 
 kkscsv = 'kkies_mixtos_2020.csv' #Este es el archivo que vamos a leer
 unidades = {'Manada':'M','Bandada':'B','Cia':'Cia','Clan':'Clan','Tropa':'T','Pionas':'P'}
@@ -136,19 +137,6 @@ def solve(grupo, level):
             grupo.add_path()
             grupo.clean_level()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
 
     SanFrancesco = create_things(unidades, kkscsv)
@@ -190,4 +178,4 @@ if __name__ == '__main__':
 
 
 
-    #Nothing
+    #Nothing by AbyssalBit
