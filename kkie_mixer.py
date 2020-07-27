@@ -2,6 +2,8 @@ from random import shuffle
 from collections import deque
 from grupo import Dir, Unit, Grupo
 
+#Code version 2.5
+
 
 kkscsv = 'kkies_mixtos_2020.csv' #Este es el archivo que vamos a leer
 unidades = {'Manada':'M','Bandada':'B','Cia':'Cia','Clan':'Clan','Tropa':'T','Pionas':'P'}
@@ -139,4 +141,4 @@ if __name__ == '__main__':
 
 
 
-    #Nothing
+    #Nothing code by AbyssalBit
