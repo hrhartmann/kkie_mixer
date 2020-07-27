@@ -3,10 +3,14 @@
 class Dir:
 
 
-    def __init__(self, name, already, new=False, assigned=None, assists=True, actual=None):
+    def __init__(self, name, already, id=0, new=False, assigned=None, assists=True, actual=None):
         self.name = name
         self.actual = actual
         self.assigned = assigned
+        if id >= 10:
+            self.id = str(id)
+        else:
+            self.id = '0' + str(id)
         if len(already) >= 6:
             self.already = already[-2:]
             self.already.append(self.actual)
@@ -40,13 +44,14 @@ class Dir:
 
 class Unit:
 
-    def __init__(self, name, key):
+    def __init__(self, name, key, id=0):
         #asignados: dirs forzados a dicha unidad
         #posibles: dirs que pueden rotar
         self.name = name
         self.key = key
         self.asignados = []
         self.posibles = []
+        self.id = id
 
     def assign(self, dir):
         self.asignados.append(dir)
@@ -81,19 +86,38 @@ class Grupo:
 
     def __init__(self, unidades, total):
         self.unidades = unidades
+        self.solutions = []
         self.total = total
+        self.paths = []
         self.cola = []
         self.no_asisten = []
+        self.last_ukey = None
         self.asisten = 0
         self.ideal = 0
 
     def no_asisten(self):
         return self.total - self.asisten
 
+    def generate_path(self):
+        chain = 'h'
+        for unit in self.unidades.values():
+            if unit.name != 'Clan':
+                for dir in unit.posibles:
+                    chain += dir.id
+                chain += (self.ideal + 1 - len(unit.posibles) - len(unit.asignados)) * '00'
+        return chain
+
+    def add_path(self):
+        chain = self.generate_path()
+        self.paths.append(chain)
+
+
     def no_asiste(self, dir):
         self.no_asisten.append(dir)
 
     def valid(self, dir, unit):
+        if self.generate_path() in self.paths:
+            return False
         if dir.assigned == True:
             return False
         if unit.key in dir.already:
@@ -112,6 +136,20 @@ class Grupo:
     def onemore(self):
         self.asisten += 1
 
+
+    def clean_unit(self, ukey):
+        unit = self.unidades[ukey]
+        for dir in unit.posibles:
+            self.cola.append(unit.posibles.pop())
+
+    def clean_level(self):
+        for unit in self.unidades.values():
+            if unit.name != 'Clan':
+                if unit.posibles:
+                    dir = unit.posibles.pop()
+                    dir.assigned = False
+                    self.cola.append(dir)
+
     def pre_assign(self, dir):
         self.onemore()
         if dir.assigned:
@@ -120,6 +158,12 @@ class Grupo:
         else:
             self.cola.append(dir)
             return 0
+
+    def reset(self):
+        for unit in self.unidades.values():
+            if unit.name != 'Clan':
+                for i in range(len(unit.posibles)):
+                    self.cola.append(unit.posibles.pop())
 
 
 
