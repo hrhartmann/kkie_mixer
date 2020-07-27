@@ -9,8 +9,10 @@ unidades = {'Manada':'M','Bandada':'B','Cia':'Cia','Clan':'Clan','Tropa':'T','Pi
 
 def create_things(unidades, archivo):
 
+    #Leemos el archivo y creamos una lista de dirigentes y guiadoras
     lista_unidades = []
     kkie = kkies_mixtos_reader(archivo)
+
     #Creamos las unidades
     for unit in unidades:
         unidades[unit] = Unit(unit, unidades[unit])
@@ -23,12 +25,13 @@ def create_things(unidades, archivo):
     for dir in kkie:
         if dir.assists:
             SanFrancesco.pre_assign(dir)
+        else:
+            SanFrancesco.no_asiste(dir)
+        #dir.print_dir()
 
-    SanFrancesco.print_group()
-
-
+    #SanFrancesco.print_group()
+    SanFrancesco.ideal_perunit()
     return SanFrancesco
-
 
 def kkies_mixtos_reader(archivo):
     uequiv = {'B':'Bandada', 'M':'Manada', 'T':'Tropa', 'Cia':'Cia',
@@ -64,11 +67,42 @@ def kkies_mixtos_reader(archivo):
             kkie.append(dog)
     return kkie
 
+def solve(grupo, level):
+
+    if level >= grupo.ideal + 2 or len(grupo.cola) == 0:
+        for e in grupo.cola:
+            print(e.name)
+        grupo.print_group()
+        return
+
+    for dir in sorted(grupo.cola, key=lambda ele: ele.priority(), reverse=True):
+        if 'Clan' not in dir.already and not dir.new:
+            print(dir.name)
+        #Partimos con el Clan porque es mas dificil asignar gente
+        clan = grupo.unidades['Clan']
+        if clan.total() < grupo.ideal:
+            if grupo.valid(dir, clan):
+                clan.poss(dir)
+                if dir in grupo.cola:
+                    grupo.cola.remove(dir)
+
+        #Asignamos al dirigente a alguna unidad
+        for unit in grupo.unidades.values():
+            if unit.total() < level:
+                if grupo.valid(dir, unit):
+                    unit.poss(dir)
+                    if dir in grupo.cola:
+                        grupo.cola.remove(dir)
+    solve(grupo, level + 1)
+
+
+
 
 
 if __name__ == '__main__':
 
     SanFrancesco = create_things(unidades, kkscsv)
+    solve(SanFrancesco, 1)
 
 
 
