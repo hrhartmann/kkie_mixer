@@ -100,7 +100,7 @@ def check_levels(grupo, level):
 def solve(grupo, level):
 
     if len(grupo.cola) == 0:
-        grupo.generate_path()
+        grupo.solutions.append(grupo.generate_path())
         print('Resuelto con exito!!!')
         grupo.print_group()
         print('Resuelto !!!')
@@ -118,6 +118,7 @@ def solve(grupo, level):
     if check_levels(grupo, level):
         level += 1
 
+    #shuffle(grupo.cola)
     for dir in sorted(grupo.cola, key=lambda ele: ele.priority(), reverse=True):
         #Asignamos al dirigente (dir) a alguna unidad
         aassigned = False
@@ -125,6 +126,7 @@ def solve(grupo, level):
             if unit.total() < level:
                 if grupo.valid(dir, unit):
                     aassigned = True
+                    grupo.kchain.append(unit.name)
                     unit.poss(dir)
                     if dir in grupo.cola:
                         grupo.cola.remove(dir)
@@ -132,9 +134,8 @@ def solve(grupo, level):
                         return True
         if not aassigned and level > grupo.ideal:
             #grupo.print_group()
-            print(dir.name)
-            print(grupo.generate_path())
-            grupo.add_path()
+            #print(dir.name)
+            grupo.backtrack()
             grupo.clean_level()
 
 if __name__ == '__main__':
