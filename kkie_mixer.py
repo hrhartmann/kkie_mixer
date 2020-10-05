@@ -21,7 +21,7 @@ def create_things(unidades, archivo):
             unidades[unit] = Unit(unit, unidades[unit], id=uid)
             uid += 1
         else:
-            unidades[unit] = Unit(unit, unidades)
+            unidades[unit] = Unit(unit, unidades[unit])
 
 
     #Creamos el grupo
