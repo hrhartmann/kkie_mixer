@@ -12,4 +12,6 @@ unidades = {'Manada':'M','Bandada':'B','Cia':'Cia','Clan':'Clan','Tropa':'T','Pi
 Las instrucciones del programa se encuentran en el README del repositorio
 '''
 
-SanFrancesco = create_things(unidades, kkscsv)
+SanFrancesco = kkm.create_things(unidades, kkscsv)
+kkm.poss_clan(SanFrancesco)
+kkm.solve(SanFrancesco, 1)

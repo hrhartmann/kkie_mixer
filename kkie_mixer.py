@@ -60,8 +60,9 @@ def kkies_mixtos_reader(archivo):
             assists = True
             already.append(invequiv[jefe[1]])
             for option in jefe[5:]:
-                if option not in already and option != '*' and option != '\n':
-                    already.append(option)
+                alr_option = option.strip('\n')
+                if alr_option not in already and option != '*' and option != '\n':
+                    already.append(alr_option)
             unidades = ['Manada', 'Tropa', 'Pionas', 'Cia', 'Clan', 'Bandada']
             if jefe[3].lower() == 'si':
                 assigned = jefe[1]
