@@ -2,7 +2,6 @@
 
 class Dir:
 
-
     def __init__(self, name, already, id=0, new=False, assigned=None, assists=True, actual=None):
         self.name = name
         self.actual = actual
@@ -93,10 +92,11 @@ class Grupo:
         self.total = total
         self.paths = []
         self.cola = []
+        self.kchain = []
         self.no_asisten = []
-        self.last_ukey = None
         self.asisten = 0
         self.ideal = 0
+        self.backtracks = 0
 
     def no_asisten(self):
         return self.total - self.asisten
@@ -113,6 +113,12 @@ class Grupo:
     def add_path(self):
         chain = self.generate_path()
         self.paths.append(chain)
+
+    def backtrack(self):
+        self.backtracks += 1
+        dir = self.unidades[self.kchain.pop()].posibles.pop()
+        dir.assigned = False
+        self.cola.append(dir)
 
 
     def no_asiste(self, dir):
@@ -184,3 +190,51 @@ class Grupo:
         print()
         for unit in self.unidades.values():
             print(unit)
+        print()
+        print(f'Backtracks: {self.backtracks}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Nothing By AbyssalBit
