@@ -61,11 +61,14 @@ def kkies_mixtos_reader(archivo):
             already.append(invequiv[jefe[1]])
             for option in jefe[5:]:
                 alr_option = option.strip('\n')
-                if alr_option not in already and option != '*' and option != '\n':
+                not_optional = ['', '*', '\n']
+                if alr_option not in already and alr_option in possible:
                     already.append(alr_option)
             unidades = ['Manada', 'Tropa', 'Pionas', 'Cia', 'Clan', 'Bandada']
             if jefe[3].lower() == 'si':
                 assigned = jefe[1]
+            elif jefe[3] in unidades:
+                assigned = jefe[3]
             else:
                 assigned = None
             if jefe[2].lower() == 'si':
@@ -136,18 +139,6 @@ def solve(grupo, level):
             print(grupo.generate_path())
             grupo.add_path()
             grupo.clean_level()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

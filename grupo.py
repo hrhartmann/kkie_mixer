@@ -121,9 +121,7 @@ class Grupo:
     def valid(self, dir, unit):
         if self.generate_path() in self.paths:
             return False
-        if not dir.assigned and dir.actual == unit.name:
-            return False
-        if dir.assigned == True:
+        if not dir.assigned == None:
             return False
         if unit.key in dir.already:
             return False
