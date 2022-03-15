@@ -14,13 +14,12 @@ class Dir:
             self.already = already[-2:]
             self.already.append(self.actual)
         elif len(already) == 5:
-            #print(f'5 already: {name}')
             possible = ['B', 'M', 'T', 'Cia', 'Clan', 'P']
             uequiv = {'B':'Bandada', 'M':'Manada', 'T':'Tropa', 'Cia':'Cia',
                     'P':'Pionas', 'Clan':'Clan'}
             for b in possible:
                 if b not in already and self.assigned == None:
-                    #print(already)
+
                     self.assigned = uequiv[b]
                     self.already = already
         else:
@@ -125,9 +124,6 @@ class Grupo:
         self.no_asisten.append(dir)
 
     def valid(self, dir, unit):
-        print(unit.key)
-        print(dir.already)
-        print('**'*20)
         if self.generate_path() in self.paths:
             return False
         if not dir.assigned == None:
