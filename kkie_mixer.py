@@ -34,9 +34,7 @@ def create_things(unidades, archivo):
             SanFrancesco.pre_assign(dir)
         else:
             SanFrancesco.no_asiste(dir)
-        #dir.print_dir()
 
-    #SanFrancesco.print_group()
     SanFrancesco.ideal_perunit()
     return SanFrancesco
 
@@ -137,8 +135,6 @@ def solve(grupo, level):
                     if solve(grupo, level):
                         return True
         if not aassigned and level > grupo.ideal:
-            #grupo.print_group()
-            #print(dir.name)
             grupo.backtrack()
             grupo.clean_level()
 
@@ -186,5 +182,3 @@ if __name__ == '__main__':
 
 
     #Nothing by AbyssalBit
-
-
